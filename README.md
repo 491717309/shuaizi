@@ -39,6 +39,9 @@
 安装完成之后，点击菜单栏的Tools（工具）选项，就可以看到SublimeServer工具，点击start SublimeServer启动它，
 然后选择要打开的文件右键选择View in SublimeServer打开就OK了
 
-## 9.Alignment                     
+## 9.vue syntax highlight
+让vue语法高亮，安装完成后，需要Ctrl+Shift+P 输入 vue 选择Set Syntax:Vue Component，完成
+
+## 10.Alignment                     
 等号对齐（Ctrl+Alt+A）
 
