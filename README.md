@@ -33,3 +33,6 @@
 
 ## 7.Autoprefixer 
 在输入CSS3属性后（冒号前）按Tab键自动补全前缀（依赖node）
+
+## 8.Alignment                     
+等号对齐（Ctrl+Alt+A）
