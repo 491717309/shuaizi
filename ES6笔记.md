@@ -301,6 +301,49 @@ const second = {
 const total = { ...first, ...second }
 console.log(total) // { a: 1, b: 2, c: 3, d: 4 }
 ```
+### 生成器（ generator ）
+能返回一个迭代器的函数
+```
+// 生成器
+function *createIterator() {
+    yield 1;
+    yield 2;
+    yield 3;
+}
+// 生成器能像正规函数那样被调用，但会返回一个迭代器
+let iterator = createIterator();
+console.log(iterator.next().value); // 1
+console.log(iterator.next().value); // 2
+console.log(iterator.next().value); // 3
+```
+那么问题来了，咱们也不能手动一直调用next()方法，你需要一个能够调用生成器并启动迭代器的方法。就像这样子的
+```
+function run(taskDef) { //taskDef即一个生成器函数
+
+        // 创建迭代器，让它在别处可用
+        let task = taskDef();
+
+        // 启动任务
+        let result = task.next();
+    
+        // 递归使用函数来保持对 next() 的调用
+        function step() {
+    
+            // 如果还有更多要做的
+            if (!result.done) {
+                result = task.next();
+                step();
+            }
+        }
+    
+        // 开始处理过程
+        step();
+    
+    }
+```
+生成器与迭代器最有趣、最令人激动的方面，或许就是可创建外观清晰的异步操作代码。你不必到处使用回调函数，而是可以建立貌似同步的代码，但实际上却使用 yield 来等待异步操作结束。
+
+
 ## 终极秘籍
 
 考虑下面的场景：比如content.js一共输出了三个变量（default, say, type）,假如我们的实际项目当中只需要用到type这一个变量，其余两个我们暂时不需要。我们可以只输入一个变量：
