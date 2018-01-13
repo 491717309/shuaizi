@@ -248,4 +248,4 @@ Normally if you require a module, you import the whole thing. ES2015 lets you ju
 未完待续
 
 
-希望更全面了解es6伙伴们可以去看阮一峰所著的电子书ECMAScript 6入门
+希望更全面了解es6伙伴们可以去看阮一峰所著的电子书[ECMAScript 6入门](http://es6.ruanyifeng.com/)
