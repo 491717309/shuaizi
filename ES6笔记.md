@@ -223,7 +223,9 @@ console.log(`The ${animalType} says ${says} to ${animal}`)
 ```
 ###### Tip：通常星号*结合as一起使用比较合适。
 
+
 ## 终极秘籍
+
 考虑下面的场景：比如content.js一共输出了三个变量（default, say, type）,假如我们的实际项目当中只需要用到type这一个变量，其余两个我们暂时不需要。我们可以只输入一个变量：
 ```
 import { type } from './content' 
