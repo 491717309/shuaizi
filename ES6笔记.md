@@ -241,9 +241,9 @@ ES6帮我们实现了！
 他们把这个功能叫做Tree-shaking，哈哈哈，意思就是打包前让整个文档树抖一抖，把那些并未被依赖或使用的东西统统抖落下去。。。
 
 看看他们官方的解释吧：
-```
+
 Normally if you require a module, you import the whole thing. ES2015 lets you just import the bits you need, without mucking around with custom builds. It's a revolution in how we use libraries in JavaScript, and it's happening right now.
-```
+
 
 未完待续
 
