@@ -115,3 +115,50 @@ class Cat extends Animal {    //继承Animal所有属性
 let cat = new Cat()
 cat.says('hello') //cat says hello
 ```
+### arrow function
+这个恐怕是ES6最最常用的一个新特性了，用它来写function比原来的写法要简洁清晰很多:
+```
+function(i){ return i + 1; } //ES5
+(i) => i + 1 //ES6
+```
+如果方程比较复杂，则需要用{}把代码包起来：
+```
+function(x, y) { 
+    x++;
+    y--;
+    return x + y;
+}
+(x, y) => {x++; y--; return x+y}
+```
+长期以来，JavaScript语言的this对象一直是一个令人头痛的问题，在对象方法中使用this，必须非常小心。
+```
+class Animal {
+    constructor(){
+        this.type = 'animal'
+    }
+    says(say){
+        setTimeout(function(){
+            console.log(this.type + ' says ' + say)
+        }, 1000)
+    }
+}
+
+ var animal = new Animal()
+ animal.says('hi')  //undefined says hi
+ ```
+ 但现在我们有了箭头函数，就不需要这么麻烦了：
+ ```
+ class Animal {
+    constructor(){
+        this.type = 'animal'
+    }
+    says(say){
+        setTimeout( () => {
+            console.log(this.type + ' says ' + say)
+        }, 1000)
+    }
+}
+ var animal = new Animal()
+ animal.says('hi')  //animal says hi
+ ```
+ ###### Tip:当我们使用箭头函数时，函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，它的this是继承外面的，因此内部的this就是外层代码块的this。
