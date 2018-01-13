@@ -115,13 +115,19 @@ class Cat extends Animal {    //继承Animal所有属性
 let cat = new Cat()
 cat.says('hello') //cat says hello
 ```
-### arrow function
+### 箭头函数
+箭头函数最直观的三个特点:
+
++不需要function关键字来创建函数
++省略return关键字
++继承当前上下文的 this 关键字
+
 这个恐怕是ES6最最常用的一个新特性了，用它来写function比原来的写法要简洁清晰很多:
 ```
 function(i){ return i + 1; } //ES5
 (i) => i + 1 //ES6
 ```
-如果方程比较复杂，则需要用{}把代码包起来：
+如果方程多余一个参数的时候，则需要用{}把代码包起来：
 ```
 function(x, y) { 
     x++;
@@ -163,7 +169,7 @@ class Animal {
  ```
  ###### Tip:当我们使用箭头函数时，函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，它的this是继承外面的，因此内部的this就是外层代码块的this。
  
- ### template string
+ ### 字符串模版
  这个东西也是非常有用，当我们要插入大段的html内容到文档中时，传统的写法非常麻烦，所以之前我们通常会引用一些模板工具库，比如mustache等等。
  
  大家可以先看下面一段代码：
@@ -183,7 +189,7 @@ $("#result").append(`
   are on sale!
 `);
 ```
- ### default, rest
+ ### 默认参数default, rest
  调用animal()方法时忘了传参数，传统的做法就是加上这一句type = type || 'cat' 来指定默认值。
  ```
  function animal(type){
@@ -193,10 +199,13 @@ $("#result").append(`
 animal()
 ```
 如果用ES6我们而已直接这么写：
-function animal(type = 'cat'){
-    console.log(type)
+```
+function action(num = 200) {
+    console.log(num)
 }
-animal()
+action() //200
+action(0) //0
+```
 
 rest语法也很简单，直接看例子：
 function animals(...types){
@@ -223,7 +232,75 @@ console.log(`The ${animalType} says ${says} to ${animal}`)
 ```
 ###### Tip：通常星号*结合as一起使用比较合适。
 
+### includes,repeat
+```
+includes：判断是否包含然后直接返回布尔值
+    let str = 'hahay'
+    console.log(str.includes('y')) // true
+ repeat: 获取字符串重复n次
+    let s = 'he'
+    console.log(s.repeat(3)) // 'hehehe'
+```
 
+### 数据访问--解构
+```
+const people = {
+    name: 'lux',
+    age: 20
+}
+const { name, age } = people
+console.log(`${name} --- ${age}`)
+//数组
+const color = ['red', 'blue']
+const [first, second] = color
+console.log(first) //'red'
+console.log(second) //'blue'
+```
+### Spread Operator 展开运算符
+ES6中另外一个好玩的特性就是Spread Operator 也是三个点儿...接下来就展示一下它的用途。
+
+组装对象或者数组
+```
+//数组
+const color = ['red', 'yellow']
+const colorful = [...color, 'green', 'pink']
+console.log(colorful) //[red, yellow, green, pink]
+
+//对象
+const alp = { fist: 'a', second: 'b'}
+const alphabets = { ...alp, third: 'c' }
+console.log(alphabets) //{ "fist": "a", "second": "b", "third": "c"}
+```
+有时候我们想获取数组或者对象除了前几项或者除了某几项的其他项
+```
+//数组
+const number = [1,2,3,4,5]
+const [first, ...rest] = number
+console.log(rest) //2,3,4,5
+//对象
+const user = {
+    username: 'lux',
+    gender: 'female',
+    age: 19,
+    address: 'peking'
+}
+const { username, ...rest } = user
+console.log(rest) //{"address": "peking", "age": 19, "gender": "female"}
+```
+对于 Object 而言，还可以用于组合成新的 Object 。(ES2017 stage-2 proposal) 当然如果有重复的属性名，右边覆盖左边
+```
+const first = {
+    a: 1,
+    b: 2,
+    c: 6,
+}
+const second = {
+    c: 3,
+    d: 4
+}
+const total = { ...first, ...second }
+console.log(total) // { a: 1, b: 2, c: 3, d: 4 }
+```
 ## 终极秘籍
 
 考虑下面的场景：比如content.js一共输出了三个变量（default, say, type）,假如我们的实际项目当中只需要用到type这一个变量，其余两个我们暂时不需要。我们可以只输入一个变量：
