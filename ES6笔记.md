@@ -10,7 +10,7 @@ var proxy = new Proxy(target, handler);
 ```
 如果调用```proxy.[[Enumerate]]()```，就会返回```target.[[Enumerate]]()```。
 
-执行一条能够触发调用proxy.[[Set]]()方法的语句
+执行一条能够触发调用```proxy.[[Set]]()```方法的语句
 ```
 proxy.color = "pink";
 ```
