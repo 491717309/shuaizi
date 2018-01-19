@@ -127,7 +127,7 @@ cat.says('hello') //cat says hello
 function(i){ return i + 1; } //ES5
 (i) => i + 1 //ES6
 ```
-如果方程多余一个参数的时候，则需要用{}把代码包起来：
+如果方程有多个参数的时候，则需要用{}把代码包起来：
 ```
 function(x, y) { 
     x++;
