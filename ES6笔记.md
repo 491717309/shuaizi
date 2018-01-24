@@ -302,7 +302,7 @@ const total = { ...first, ...second }
 console.log(total) // { a: 1, b: 2, c: 3, d: 4 }
 ```
 ### 生成器（ generator ）
-能返回一个迭代器的函数
+1.能返回一个迭代器的函数
 ```
 // 生成器
 function *createIterator() {
@@ -312,10 +312,13 @@ function *createIterator() {
 }
 // 生成器能像正规函数那样被调用，但会返回一个迭代器
 let iterator = createIterator();
-console.log(iterator.next().value); // 1
-console.log(iterator.next().value); // 2
-console.log(iterator.next().value); // 3
+
+console.log(iterator.next()); // { value: 1, done: false }
+console.log(iterator.next()); // { value: 2, done: false }
+console.log(iterator.next()); // { value: 3, done: false }
+console.log(iterator.next()); // { value: undefined, done: true }
 ```
+
 那么问题来了，咱们也不能手动一直调用next()方法，你需要一个能够调用生成器并启动迭代器的方法。就像这样子的
 ```
 function run(taskDef) { //taskDef即一个生成器函数
@@ -341,7 +344,63 @@ function run(taskDef) { //taskDef即一个生成器函数
     
     }
 ```
+或者使用for...of 循环
+```
+function* foo() {
+  yield 1;
+  yield 2;
+  yield 3;
+  yield 4;
+  yield 5;
+  return 6;
+}
+
+for (let v of foo()) {
+  console.log(v);
+}
+// 1 2 3 4 5
+```
+利用 Generator 函数和for...of循环，实现斐波那契数列的例子
+```
+function* fibonacci() {
+  let [a, b] = [0, 1];
+  for (;;) {
+    [a, b] = [b, a + b];
+    yield b;
+  }
+}
+
+for (let n of fibonacci()) {
+  if (n > 1000) break;
+  console.log(n);
+}
+```
+
+2.next 方法的参数
+yield表达式本身没有返回值，或者说总是返回undefined。next方法可以带一个参数，该参数就会被当作上一个yield表达式的返回值。
+```
+function* f() {
+  for(var i = 0; true; i++) {
+    var reset = yield i;
+    if(reset) { i = -1; }
+  }
+}
+var g = f();
+g.next() // { value: 0, done: false }
+g.next() // { value: 1, done: false }
+g.next(true) // { value: 0, done: false } 给reset = true
+```
+
 生成器与迭代器最有趣、最令人激动的方面，或许就是可创建外观清晰的异步操作代码。你不必到处使用回调函数，而是可以建立貌似同步的代码，但实际上却使用 yield 来等待异步操作结束。
+
+ES6 没有规定，function关键字与函数名之间的星号，写在哪个位置。这导致下面的写法都能通过。
+```
+function * foo(x, y) { ··· }
+function *foo(x, y) { ··· }
+function* foo(x, y) { ··· }
+function*foo(x, y) { ··· }
+```
+
 
 
 ## 终极秘籍
